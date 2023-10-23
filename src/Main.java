@@ -21,23 +21,22 @@ public class Main {
 
 	public static int calcularSumaTotalISBN(String codiISBNUsuari) {
 
-		int contador = 1;
+		char[] codiArray = codiISBNUsuari.toCharArray();
+
 		int sumaTotal = 0;
+		int contador = 1;
 
-		int tamanoCodigoLimpio = 0;
-		
-		for (int i = 0; i < codiISBNUsuari.length(); i++) {
-			if (codiISBNUsuari.charAt(i) != '-') {
-				tamanoCodigoLimpio++;
-			}
-		}
+		for (int i = 0; i < (codiArray.length - 2); i++) {
 
-		for (int i = 0; i < codiISBNUsuari.length(); i++) {
-			if (codiISBNUsuari.charAt(i) != '-') {
-				sumaTotal += (((int) codiISBNUsuari.charAt(i)) * contador);
+			if (codiArray[i] != '-') {
+				sumaTotal += codiArray[i] * contador;
+				System.out.println();
 				contador++;
 			}
+
 		}
+
+		System.out.println("sumaTotal = " + sumaTotal);
 
 		return sumaTotal;
 
@@ -45,10 +44,11 @@ public class Main {
 
 	public static boolean isISBNCorrect(String codiISBNUsuari) {
 		int sumaTotalISBN = calcularSumaTotalISBN(codiISBNUsuari);
+		char ultimoCaracter = codiISBNUsuari.charAt(codiISBNUsuari.length() - 1);
 
-		if ((sumaTotalISBN % 11) == (Character.getNumericValue(codiISBNUsuari.charAt(codiISBNUsuari.length() - 1)))) {
+		if ((sumaTotalISBN % 11) == (Character.getNumericValue(ultimoCaracter))) {
 			return true;
-		} else if ((sumaTotalISBN % 11 == 10) && (codiISBNUsuari.charAt(codiISBNUsuari.length() - 1) == 'X')) {
+		} else if ((sumaTotalISBN % 11 == 10) && ultimoCaracter == 'X') {
 			return true;
 		} else {
 			return false;
